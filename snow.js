@@ -119,7 +119,7 @@ switchBtn.onclick = function (){
     if (videoIndex > maxVideo){
         videoIndex = 1;
     }
-    bgVideo.src = "./vedio/t" + videoIndex + ".mp4";
+    bgVideo.src = "./vedio - 副本/t" + videoIndex + ".mp4";
     bgVideo.play();
 };
 
