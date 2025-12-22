@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>圣诞入口</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./snow.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background: url("./img/login.png") no-repeat center center;
+            background-size: cover;
+
+            filter: blur(4px);
+            /* 防止模糊边缘露白 */
+
+            z-index: -1;
+        }
+
+        /* ---------- 上方标题 ---------- */
+        .title-box {
+            width: 40%;
+            color: #fd4444;
+            /* 背景虚化 */
+            backdrop-filter: blur(6px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 400;
+        }
+
+        .title-box h1 {
+            font-size: 84px;
+            letter-spacing: 6px;
+            margin-bottom: 16px;
+            text-shadow: 0 6px 15px rgba(255, 255, 255, 0.6);
+        }
+
+        .title-box p {
+            margin: 5px 0;
+            font-size: 28px;
+            color: #f5cece;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        /* ---------- 中央磨砂登录框 ---------- */
+        .login-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+            background: rgba(255, 255, 255, 0.15);
+            /* 背景虚化 */
+            backdrop-filter: blur(12px);
+
+            padding: 40px 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            text-align: center;
+            z-index: 400;
+        }
+
+        .login-box input {
+            width: 240px;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .login-box button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            background: rgba(214, 48, 49, 0.85);
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-box button:hover {
+            background: rgba(255, 118, 117, 0.9);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 标题 -->
+    <div class="title-box">
+        <h1>圣诞节快乐</h1>
+        <p id="timeText">距离2024年圣诞已经过 0 天 0 小时 0 分钟 0 秒</p>
+        <p id="timeText" style="font-size: 20px;">点击雪花有惊喜哦(密码1225)</p>
+    </div>
+
+    <!-- 中央密码框 -->
+    <div class="login-box">
+        <input type="password" id="pwd" placeholder="请输入圣诞密码">
+        <button id="loginBtn">进入</button>
+    </div>
+
+    <script>
+        /* ---------- 时间计算 ---------- */
+        function updateTime() {
+            let christmas = new Date("2024-12-25 00:00:00").getTime();
+            let now = Date.now();
+
+            let diff = now - christmas;
+            if (diff < 0) diff = 0;
+
+            let seconds = Math.floor(diff / 1000);
+            let days = Math.floor(seconds / (24 * 3600));
+            seconds %= (24 * 3600);
+            let hours = Math.floor(seconds / 3600);
+            seconds %= 3600;
+            let minutes = Math.floor(seconds / 60);
+            seconds %= 60;
+
+            document.getElementById("timeText").innerText =
+                `❤在一起❤ 已经 ${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        /* ---------- 密码校验 ---------- */
+        document.getElementById("loginBtn").onclick = function () {
+            let pwd = document.getElementById("pwd").value;
+            if (pwd === "1225") {
+                window.location.href = "./snow.html";
+            } else {
+                alert("密码错误，再试一次吧 🎄");
+            }
+        };
+
+        document.getElementById("pwd").addEventListener("keyup", function (e) {
+            if (e.key === "Enter") {
+                document.getElementById("loginBtn").click();
+            }
+        });
+    </script>
+    <script src="./snow.js"></script>
+</body>
+
+</html>
